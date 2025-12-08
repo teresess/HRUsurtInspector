@@ -13,18 +13,13 @@ public class Achievement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "player_id")
-    private User user;
-
-    private String code;
-    private String name;
+    private String title;
     private String description;
+    private Integer requiredValue;
 
     @Enumerated(EnumType.STRING)
     private AchievementType type;
 
-    private Integer requiredValue;
-    private Integer rewardPoints;
+    @Column(columnDefinition = "JSON")
+    private String achievementDetails;
 }
-

@@ -7,6 +7,7 @@ import upd.dev.usurtprojecthr.handler.ButtonHandler;
 import upd.dev.usurtprojecthr.handler.CommandHandler;
 import upd.dev.usurtprojecthr.logistic.Util;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class Loader extends TelegramLongPollingBot {
@@ -24,16 +25,16 @@ public class Loader extends TelegramLongPollingBot {
     }
     @Override
     public void onUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
+        if (update.hasMessage() && update.getMessage().hasText() || update.getMessage().hasDocument()) {
             try {
                 commandHandler.onCommandEvent(update);
-            } catch (TelegramApiException e) {
+            } catch (TelegramApiException | IOException e) {
                 throw new RuntimeException(e);
             }
         } else if (update.hasCallbackQuery()) {
             try {
                 buttonHandler.onButtonEvent(update);
-            } catch (TelegramApiException e) {
+            } catch (TelegramApiException | IOException e) {
                 throw new RuntimeException(e);
             }
         }
