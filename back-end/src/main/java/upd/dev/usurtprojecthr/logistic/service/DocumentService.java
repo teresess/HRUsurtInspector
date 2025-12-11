@@ -45,6 +45,23 @@ public class DocumentService {
 
         return randomDocuments;
     }
+    public List<String> getRandomErrors() {
+        Random random = new Random();
+        int errorsCount = random.nextInt(3, 6);
+        List<String> errors = new ArrayList<>(), returnErrors = new ArrayList<>();
+        List<Document> documents = getAll();
+        for (Document document : documents) {
+            errors.addAll(Arrays.stream(document.getErrorsName().split(",")).toList());
+        }
+
+        Collections.shuffle(errors);
+        Collections.shuffle(errors);
+
+        for (int i = 0; i < errorsCount && i < errors.size(); i++) {
+            returnErrors.add(errors.get(i));
+        }
+        return returnErrors;
+    }
     public List<Document> getAll() {
         return documentRepository.findAll();
     }

@@ -37,6 +37,10 @@ public class Controller {
     public ResponseEntity<List<Document>> getRandomDocuments() {
         return ResponseEntity.ok(services.doc().getRandomDocuments());
     }
+    @GetMapping("/document/random-errors")
+    public ResponseEntity<List<String>> getRandomErrors() {
+        return ResponseEntity.ok(services.doc().getRandomErrors());
+    }
     @GetMapping("/document/{id}")
     public ResponseEntity<byte[]> viewPdf(@PathVariable Long id) {
         Document document = services.doc().getDocumentById(id).get();
